@@ -1,0 +1,45 @@
+# depslib dependency file v1.0
+1521735400 source:c:\users\babywade\documents\github\cppconsole\main.cpp
+	<iostream>
+	<vector>
+	<fstream>
+	<string>
+	"Flavor.h"
+	"TimeRecord.h"
+	"DataRecord.h"
+
+1521708690 c:\users\babywade\documents\github\cppconsole\timerecord.h
+	<iostream>
+
+1521732322 c:\users\babywade\documents\github\cppconsole\flavor.h
+	<iostream>
+	<string>
+
+1521732778 c:\users\babywade\documents\github\cppconsole\datarecord.h
+	<iostream>
+	<string>
+	"Flavor.h"
+	"TimeRecord.h"
+
+1521736256 source:c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\main.cpp
+	<iostream>
+	<vector>
+	<fstream>
+	<string>
+	"Flavor.h"
+	"TimeRecord.h"
+	"DataRecord.h"
+
+1521732322 c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\flavor.h
+	<iostream>
+	<string>
+
+1521708690 c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\timerecord.h
+	<iostream>
+
+1521732778 c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\datarecord.h
+	<iostream>
+	<string>
+	"Flavor.h"
+	"TimeRecord.h"
+
