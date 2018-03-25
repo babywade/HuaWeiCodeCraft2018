@@ -20,6 +20,9 @@ int main() {
 
     //∂¡»Îinput_5flavors_cpu_7days.txt
     ifstream fin("input_5flavors_cpu_7days.txt");
+    if (fin.fail()) {
+        cout << "failed to open input_5flavors_cpu_7days.txt" << endl;
+    }
     fin >> totalCPU >> totalMemory >> totalHardDiskStorage >> totalFlavor;
     for (int i = 0; i < totalFlavor; ++i) {
         fin >> flavor;
@@ -27,6 +30,7 @@ int main() {
     }
     fin >> resourceName;
     fin >> predictionBegin >> predictionEnd;
+    fin.close();
 
 //    ≤‚ ‘∂¡»°
 //    cout << totalCPU << " " << totalMemory << " " << totalHardDiskStorage << endl
@@ -38,10 +42,12 @@ int main() {
 //    << predictionBegin << predictionEnd;
 
 //  ‘§≤‚
-    ifstream fpin("TrainData_2015.1.1_2015.2.19.txt");
+    fin.clear();
+    fin.open("TrainData_2015.1.1_2015.2.19.txt");
+//    ifstream fpin("TrainData_2015.1.1_2015.2.19.txt");
     DataRecord dataRecord;
     int cntRecord = 0;
-    while(fpin >> dataRecord) {
+    while(fin >> dataRecord) {
         auto s = dataRecord.flavor.name.size();
         string sub = dataRecord.flavor.name.substr(6, s - 1);
 //        cout << sub << " ";
@@ -94,6 +100,7 @@ int main() {
     << "flavor4 " << d << endl
     << "flavor5 " << e << endl << endl;
 //  ∑≈÷√
+
     return 0;
 }
 
