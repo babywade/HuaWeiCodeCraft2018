@@ -35,6 +35,12 @@
 		<Unit filename="DataRecord.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="Dijkstra.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="Dijkstra.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="Flavor.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
