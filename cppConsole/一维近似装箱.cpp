@@ -1,29 +1,38 @@
-//Ò»Î¬½üËÆ×°ÏäÎÊÌâ
+//ä¸€ç»´è¿‘ä¼¼è£…ç®±é—®é¢˜
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
-//Ïä×ÓÌå»ı
+//ç®±å­ä½“ç§¯
 #define VOLUMN 10
-//Áª»úËã·¨
-void nextFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns);
-void firstFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns);
-void bestFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns);
+//è”æœºç®—æ³•
+void nextFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns);
+void firstFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns);
+void bestFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns);
+//è„±æœºç®—æ³•
+void firstFitDecreasing(vector<int>& blocks, vector<int>& answer, int& cnt, vector<int>& volumns);
+void bestFitDecreasing(vector<int>& blocks, vector<int>& answer, int& cnt, vector<int>& volumns);
 
 int main() {
     int block;
     vector<int> answer;
     vector<int> volumns;
-    //#1Ïä×Ó³õÊ¼»¯ÎªVOLUMN
+    //#1ç®±å­åˆå§‹åŒ–ä¸ºVOLUMN
     volumns.push_back(VOLUMN);
     int cnt = 1;
+    vector<int> blocks;
 
     while(cin >> block) {
 //        nextFit(block, answer, cnt, volumns);
 //        firstFit(block, answer, cnt, volumns);
-        bestFit(block, answer, cnt, volumns);
+//        bestFit(block, answer, cnt, volumns);
+
+        blocks.push_back(block);
     }
-    //Êä³ö½á¹û
+    firstFitDecreasing(blocks, answer, cnt, volumns);
+    
+    //è¾“å‡ºç»“æœ
     for(auto& s:answer) {
         cout << s << " ";
     }
@@ -33,8 +42,8 @@ int main() {
     }
     return 0;
 }
-    //ÏÂÏîÊÊÓ¦Ëã·¨
-void nextFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns) {
+    //ä¸‹é¡¹é€‚åº”ç®—æ³•
+void nextFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns) {
     if(volumns[cnt - 1] >= block) {
         answer.push_back(cnt);
         volumns[cnt - 1] -= block;
@@ -44,8 +53,8 @@ void nextFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns) {
         volumns.push_back(VOLUMN - block);
     }
 }
-    //Ê×´ÎÊÊÓ¦Ëã·¨
-void firstFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns) {
+    //é¦–æ¬¡é€‚åº”ç®—æ³•
+void firstFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns) {
     for(vector<int>::iterator iter = volumns.begin(); iter != volumns.end(); ++iter) {
         if((*iter) >= block) {
             answer.push_back(iter - volumns.cbegin() + 1);
@@ -58,8 +67,8 @@ void firstFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns) {
     ++cnt;
     answer.push_back(cnt);
 }
-    //×î¼ÑÊÊÓ¦Ëã·¨
-void bestFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns) {
+    //æœ€ä½³é€‚åº”ç®—æ³•
+void bestFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns) {
     int bestPosition = cnt + 1;
     int min_volumn = volumns[0];
     for(vector<int>::iterator iter = volumns.begin(); iter != volumns.end(); ++iter) {
@@ -77,5 +86,19 @@ void bestFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns) {
     } else {
         answer.push_back(bestPosition);
         volumns[bestPosition - 1] -= block;
+    }
+}
+
+void firstFitDecreasing(vector<int>& blocks, vector<int>& answer, int& cnt, vector<int>& volumns) {
+    sort(blocks.begin(), blocks.end());
+    for(auto& block:blocks) {
+        firstFit(block, answer, cnt, volumns);
+    }
+}
+
+void bestFitDecreasing(vector<int>& blocks, vector<int>& answer, int& cnt, vector<int>& volumns) {
+    sort(blocks.begin(), blocks.end());
+    for(auto& block:blocks) {
+        bestFit(block, answer, cnt, volumns);
     }
 }
