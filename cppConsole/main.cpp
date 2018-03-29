@@ -1,52 +1,73 @@
 #include <iostream>
 #include <vector>
-#include <fstream>
-#include <string>
-#include "Flavor.h"
-#include "TimeRecord.h"
-#include "DataRecord.h"
 
 using namespace std;
 
-#define BOX_X 56
-#define BOX_Y 128
+#define VOLUMN 10
 
-class Box {
-private:
-    int box_x;
-    int box_y;
-public:
-    box(int x, int y) {
-        box_x = x;
-        box_y = y;
-    }
-};
-class Block {
-public:
-    int block_x;
-    int block_y;
-};
-//void logisticRegression();
+void nextFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns);
+void firstFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns);
+void bestFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns);
 
 int main() {
-    vector<Box> boxLists;
-    Box box(BOX_X, BOX_Y);
-    boxLists.push_back(box);
-
-    vector<Block> blockLists;
-    fstream fin("testBox.txt");
-    if(fin.fail()) {
-        cout << "failed to open testBox.txt" << endl;
+    int block;
+    vector<int> answer;
+    vector<int> volumns;
+    volumns.push_back(VOLUMN);
+    int cnt = 1;
+    while(cin >> block) {
+//        nextFit(block, answer, cnt, volumns);
+//        firstFit(block, answer, cnt, volumns);
+        bestFit(block, answer, cnt, volumns);
     }
-    Block block;
-    while(fin >> block) {
 
+    for(auto& s:answer) {
+        cout << s << " ";
     }
+
     return 0;
 }
 
-//void logisticRegression() {
-//    alpha = 0.001;
-//    num_iters = 1000;
-//
-//}
+void nextFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns) {
+    if(volumns[cnt - 1] >= block) {
+        answer.push_back(cnt);
+        volumns[cnt - 1] -= block;
+    } else {
+        ++cnt;
+        answer.push_back(cnt);
+        volumns.push_back(VOLUMN - block);
+    }
+}
+
+void firstFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns) {
+    for(vector<int>::iterator iter = volumns.begin(); iter != volumns.end(); ++iter) {
+        if((*iter) >= block) {
+            answer.push_back(iter - volumns.cbegin() + 1);
+            *iter -= block;
+            return;
+        }
+    }
+
+    volumns.push_back(VOLUMN - block);
+    ++cnt;
+    answer.push_back(cnt);
+}
+
+void bestFit(int block, vector<int>& answer, int& cnt, vector<int>& volumns) {
+    int bestPosition = cnt + 1;
+    int min_volumn = VOLUMN;
+    for(vector<int>::iterator iter = volumns.begin(); iter != volumns.end(); ++iter) {
+        if((*iter) >= block && (*iter) - block <= min_volumn) {
+            bestPosition = iter - volumns.cbegin() + 1;
+            min_volumn = (*iter) - block;
+        }
+    }
+    if(bestPosition == cnt + 1) {
+        volumns.push_back(VOLUMN - block);
+        ++cnt;
+        answer.push_back(cnt);
+    } else {
+        answer.push_back(bestPosition);
+        volumns[bestPosition] -= block;
+    }
+}

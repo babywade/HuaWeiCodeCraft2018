@@ -21,14 +21,9 @@
 	"Flavor.h"
 	"TimeRecord.h"
 
-1521960127 source:c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\main.cpp
+1522313294 source:c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\main.cpp
 	<iostream>
 	<vector>
-	<fstream>
-	<string>
-	"Flavor.h"
-	"TimeRecord.h"
-	"DataRecord.h"
 
 1521732322 c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\flavor.h
 	<iostream>
