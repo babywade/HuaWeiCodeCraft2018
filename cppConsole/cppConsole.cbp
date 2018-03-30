@@ -51,7 +51,9 @@
 		<Extensions>
 			<code_completion />
 			<envvars />
-			<debugger />
+			<debugger>
+				<search_path add="..\..\..\..\..\..\Program Files\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin" />
+			</debugger>
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>

@@ -21,9 +21,11 @@
 	"Flavor.h"
 	"TimeRecord.h"
 
-1522325186 source:c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\main.cpp
+1522414947 source:c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\main.cpp
 	<iostream>
 	<vector>
+	<algorithm>
+	"hwpair.h"
 
 1521732322 c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\flavor.h
 	<iostream>
@@ -37,4 +39,6 @@
 	<string>
 	"Flavor.h"
 	"TimeRecord.h"
+
+1522415222 c:\users\babywade\documents\github\huaweicodecraft2018\cppconsole\hwpair.h
 

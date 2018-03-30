@@ -2,29 +2,31 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <utility>
+#include "hwpair.h"
 
 using namespace std;
 //箱子体积
 #define VOLUMN_X 10
 #define VOLUMN_Y 10
 
+static hwpair VOLUMN(VOLUMN_X, VOLUMN_Y);
+
 //联机算法
-void nextFit(pair<int, int>& block, vector<int>& answer, int& cnt, vector<pair<int, int>>& volumns);
-void firstFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns);
-void bestFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns);
+void nextFit(hwpair& block, vector<int>& answer, int& cnt, vector<hwpair>& volumns);
+void firstFit(hwpair& block, vector<int>& answer, int& cnt, vector<hwpair>& volumns);
+void bestFit(hwpair& block, vector<int>& answer, int& cnt, vector<hwpair>& volumns);
 //脱机算法
-void firstFitDecreasing(vector<int>& blocks, vector<int>& answer, int& cnt, vector<int>& volumns);
-void bestFitDecreasing(vector<int>& blocks, vector<int>& answer, int& cnt, vector<int>& volumns);
+void firstFitDecreasing(vector<hwpair>& blocks, vector<int>& answer, int& cnt, vector<hwpair>& volumns);
+void bestFitDecreasing(vector<hwpair>& blocks, vector<int>& answer, int& cnt, vector<hwpair>& volumns);
 
 int main() {
-    pair<int, int> block;
+    hwpair block;
     vector<int> answer;
-    vector<pair<int, int>> volumns;
+    vector<hwpair> volumns;
     //#1箱子初始化为VOLUMN
-    volumns.push_back({VOLUMN_X, VOLUMN_Y});
+    volumns.push_back(VOLUMN);
     int cnt = 1;
-    vector<pair<int, int>> blocks;
+    vector<hwpair> blocks;
 
     while(cin >> block) {
         nextFit(block, answer, cnt, volumns);
@@ -46,7 +48,7 @@ int main() {
     return 0;
 }
     //下项适应算法
-void nextFit(pair<int, int>& block, vector<int>& answer, int& cnt, vector<pair<int, int>>& volumns) {
+void nextFit(hwpair& block, vector<int>& answer, int& cnt, vector<hwpair>& volumns) {
     //需要定义>=操作符
     if(volumns[cnt - 1] >= block) {
         answer.push_back(cnt);
@@ -56,12 +58,12 @@ void nextFit(pair<int, int>& block, vector<int>& answer, int& cnt, vector<pair<i
         ++cnt;
         answer.push_back(cnt);
         //需要定义-操作符
-        volumns.push_back({VOLUMN_X, VOLUMN_Y} - block);
+        volumns.push_back(hwpair(VOLUMN_X - block.getFirst(), VOLUMN_Y - block.getSecond()));
     }
 }
     //首次适应算法
-void firstFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns) {
-    for(vector<int>::iterator iter = volumns.begin(); iter != volumns.end(); ++iter) {
+void firstFit(hwpair& block, vector<int>& answer, int& cnt, vector<hwpair>& volumns) {
+    for(vector<hwpair>::iterator iter = volumns.begin(); iter != volumns.end(); ++iter) {
         if((*iter) >= block) {
             answer.push_back(iter - volumns.cbegin() + 1);
             *iter -= block;
@@ -69,15 +71,15 @@ void firstFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns) {
         }
     }
 
-    volumns.push_back(VOLUMN - block);
+    volumns.push_back(hwpair(VOLUMN_X - block.getFirst(), VOLUMN_Y - block.getSecond()));
     ++cnt;
     answer.push_back(cnt);
 }
     //最佳适应算法
-void bestFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns) {
+void bestFit(hwpair& block, vector<int>& answer, int& cnt, vector<hwpair>& volumns) {
     int bestPosition = cnt + 1;
-    int min_volumn = volumns[0];
-    for(vector<int>::iterator iter = volumns.begin(); iter != volumns.end(); ++iter) {
+    hwpair min_volumn = volumns[0];
+    for(vector<hwpair>::iterator iter = volumns.begin(); iter != volumns.end(); ++iter) {
         if((*iter) >= block && (*iter) - block <= min_volumn) {
             bestPosition = iter - volumns.cbegin() + 1;
             min_volumn = (*iter) - block;
@@ -95,14 +97,14 @@ void bestFit(int& block, vector<int>& answer, int& cnt, vector<int>& volumns) {
     }
 }
 
-void firstFitDecreasing(vector<int>& blocks, vector<int>& answer, int& cnt, vector<int>& volumns) {
+void firstFitDecreasing(vector<hwpair>& blocks, vector<int>& answer, int& cnt, vector<hwpair>& volumns) {
     sort(blocks.begin(), blocks.end());
     for(auto& block:blocks) {
         firstFit(block, answer, cnt, volumns);
     }
 }
 
-void bestFitDecreasing(vector<int>& blocks, vector<int>& answer, int& cnt, vector<int>& volumns) {
+void bestFitDecreasing(vector<hwpair>& blocks, vector<int>& answer, int& cnt, vector<hwpair>& volumns) {
     sort(blocks.begin(), blocks.end());
     for(auto& block:blocks) {
         bestFit(block, answer, cnt, volumns);
