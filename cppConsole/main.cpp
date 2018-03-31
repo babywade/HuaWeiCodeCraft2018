@@ -23,7 +23,15 @@ void bestFit(hwpair& block, vector<int>& answer, int& cnt, vector<hwpair>& volum
 void firstFitDecreasing(vector<hwpair>& blocks, vector<int>& answer, int& cnt, vector<hwpair>& volumns);
 void bestFitDecreasing(vector<hwpair>& blocks, vector<int>& answer, int& cnt, vector<hwpair>& volumns);
 
+double assessFunction();
+
 int main() {
+    vector<hwpair> trainData;
+    vector<hwpair> blockKinds;
+    vector<int> timeData;
+    enum month {JAN=31, FEB=28, MAR=31, APR=30, MAY=31, JUN=30,
+                JUL=31, AUG=31, SEP=30, OCT=31, NOV=30, DEC=31};
+
     //±äÁ¿ÉùÃ÷
     int totalCPU, totalMemory, totalHardDiskStorage, totalFlavor;
     Flavor flavor;
@@ -39,7 +47,9 @@ int main() {
     fin >> totalCPU >> totalMemory >> totalHardDiskStorage >> totalFlavor;
     for (int i = 0; i < totalFlavor; ++i) {
         fin >> flavor;
+        flavor.memory /= RADIX;
         flavors.push_back(flavor);
+        blockKinds.push_back(pair(flavor.cpu, flavor.memory));
     }
     fin >> resourceName;
     fin >> predictionBegin >> predictionEnd;
@@ -70,18 +80,23 @@ int main() {
         switch(number) {
         case 1:
             ++flavors[0].cnt;
+            trainData.push_back(blockKinds[0]);
             break;
         case 2:
             ++flavors[1].cnt;
+            trainData.push_back(blcokKinds[1]);
             break;
         case 3:
             ++flavors[2].cnt;
+            trainData.push_back(blockKinds[2]);
             break;
         case 4:
             ++flavors[3].cnt;
+            trainData.push_back(blockKinds[3]);
             break;
         case 5:
             ++flavors[4].cnt;
+            trainData.push_back(blockKinds[4]);
             break;
         default:
             continue;
