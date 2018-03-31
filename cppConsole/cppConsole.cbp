@@ -47,6 +47,9 @@
 		<Unit filename="TimeRecord.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="hwpair.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
