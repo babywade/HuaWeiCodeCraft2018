@@ -102,6 +102,7 @@ int main() {
             continue;
         }
     }
+
     int a = flavors[0].cnt;
     int b = flavors[1].cnt;
     int c = flavors[2].cnt;
