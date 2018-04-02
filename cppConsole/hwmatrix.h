@@ -3,32 +3,31 @@
 
 template<typename T> hwmatrix {
 //    friend std::istream& operator>>(std::istream& in, hwmatrix& mat);
-    friend std::ostream& operator<<(std::ostream& out, hwmatrix& mat);
-    friend hwmatrix<typename T>& operator+(hwmatrix& matA, hwmatrix& matB);
-    friend hwmatrix& operator-(hwmatrix& matA, hwmatrix& matB);
-    friend hwmatrix& operator*(hwmatrix& matA, hwmatrix& matB);
+    friend std::ostream& operator<<(std::ostream& out, hwmatrix<T>& mat);
+    friend hwmatrix<T>& operator+(hwmatrix<T>& matA, hwmatrix<T>& matB);
+    friend hwmatrix<T>& operator-(hwmatrix<T>& matA, hwmatrix<T>& matB);
+    friend hwmatrix<T>& operator*(hwmatrix<T>& matA, hwmatrix<T>& matB);
 private:
     vector<vector<T>> matrix;
 public:
     hwmatrix() = default;
-    hwmatrix(T m, T n) : matrix(m, vector<T>(n)) {};
-    T rows() {
+    hwmatrix(int m, int n) : matrix(m, vector<T>(n)) {};
+    int rows() {
         return matrix.size();
     }
-    T cols() {
+    int cols() {
         return matrix[0].size();
     }
-    double det(hwmatrix& mat) {
+    double det(hwmatrix<T>& mat) {
         row = mat.size();
         col = mat[0].size();
 
         if(row != col) {
             cout << "error, mat is not a square matrix" << endl;
         } else {
-            T res;
+            hwmatrix<T> res;
 
         }
-
     }
     void resize(int rows, int cols) {
         matrix.resize(rows);
@@ -36,7 +35,9 @@ public:
             s.resize(cols);
         }
     }
+    hwmatrix<T>& transpose(hwmatrix<T>& mat) {
 
+    }
 };
 
 inline hwmatrix<T>& operator+(hwmatrix<T>& matA, hwmatrix<T>& matB) {
